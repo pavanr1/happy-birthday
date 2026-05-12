@@ -273,6 +273,7 @@
 
         .confetti {
             position: fixed;
+            top: -50px;
             width: 10px;
             height: 10px;
             background: #ffd700;
@@ -287,11 +288,11 @@
 
         @keyframes confettiFall {
             0% {
-                transform: translateY(-100px) rotate(0deg);
+                transform: translateY(0) rotate(0deg);
                 opacity: 1;
             }
             100% {
-                transform: translateY(100vh) rotate(720deg);
+                transform: translateY(calc(100vh + 100px)) rotate(720deg);
                 opacity: 0;
             }
         }
