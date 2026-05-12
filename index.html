@@ -68,10 +68,6 @@
             background-image: url('images/image1.png');
         }
 
-        #bg2 {
-            background-image: url('images/image2.png');
-        }
-
         .intro-section {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             z-index: 2;
@@ -183,60 +179,6 @@
             font-size: 2rem;
         }
 
-        .personal-message-section {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            z-index: 2;
-            padding: 40px 20px;
-        }
-
-        .personal-card {
-            max-width: 700px;
-            background: white;
-            padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            text-align: center;
-        }
-
-        .personal-card h2 {
-            color: #667eea;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .personal-card p {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            color: #444;
-            margin: 20px 0;
-        }
-
-        .signature {
-            font-size: 1.2rem;
-            color: #667eea;
-            font-style: italic;
-            margin-top: 30px;
-        }
-
-        .final-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            z-index: 2;
-        }
-
-        .final-content {
-            text-align: center;
-            color: white;
-            padding: 20px;
-        }
-
-        .final-content h2 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-        }
-
-        .final-content .emoji {
-            font-size: 4rem;
-        }
 
         @keyframes bounce {
             0%, 100% {
@@ -304,25 +246,6 @@
                 font-size: 1.5rem;
             }
 
-            .personal-card {
-                padding: 30px 20px;
-            }
-
-            .personal-card h2 {
-                font-size: 2rem;
-            }
-
-            .personal-card p {
-                font-size: 1.1rem;
-            }
-
-            .final-content h2 {
-                font-size: 2rem;
-            }
-
-            .final-content .emoji {
-                font-size: 3rem;
-            }
         }
 
         @media (max-width: 480px) {
@@ -353,7 +276,6 @@
 </head>
 <body>
     <div class="bg-image" id="bg1"></div>
-    <div class="bg-image" id="bg2"></div>
 
     <div class="scroll-container">
         <!-- Intro Section -->
@@ -384,31 +306,6 @@
             </div>
         </section>
 
-        <!-- Personal Message Section -->
-        <section class="section personal-message-section">
-            <div class="personal-card">
-                <h2>✨ A Special Note ✨</h2>
-                <p>
-                    <!-- ✏️ ADD YOUR PERSONAL MESSAGE HERE -->
-                    Dear [Name],<br><br>
-                    [Write your heartfelt personal message here. Share your favorite memories, 
-                    inside jokes, or express what this person means to you!]
-                    <!-- ✏️ END PERSONAL MESSAGE -->
-                </p>
-                <div class="signature">- With all my love, [Your Name]</div>
-            </div>
-        </section>
-
-        <!-- Final Wishes Section -->
-        <section class="section final-section">
-            <div class="final-content">
-                <h2>Wishing You The Best!</h2>
-                <p style="font-size: 1.5rem; margin: 20px 0;">
-                    May all your dreams come true! 🌟
-                </p>
-                <div class="emoji">🎈🎁🎊🎉</div>
-            </div>
-        </section>
     </div>
 
     <script>
@@ -429,7 +326,6 @@
         // Background image transitions
         const scrollContainer = document.querySelector('.scroll-container');
         const bg1 = document.getElementById('bg1');
-        const bg2 = document.getElementById('bg2');
 
         scrollContainer.addEventListener('scroll', () => {
             const scrollPos = scrollContainer.scrollTop;
@@ -438,17 +334,8 @@
             // Show bg1 in message section (2nd section)
             if (scrollPos > windowHeight * 0.5 && scrollPos < windowHeight * 2) {
                 bg1.classList.add('active');
-                bg2.classList.remove('active');
-            } 
-            // Show bg2 in personal message section (3rd section)
-            else if (scrollPos >= windowHeight * 2 && scrollPos < windowHeight * 3) {
+            } else {
                 bg1.classList.remove('active');
-                bg2.classList.add('active');
-            } 
-            // Hide backgrounds
-            else {
-                bg1.classList.remove('active');
-                bg2.classList.remove('active');
             }
 
             // Message line reveal effect
