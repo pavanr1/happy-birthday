@@ -1,0 +1,6 @@
+SAVE YOUR IMAGES HERE:
+
+1. Save the first image (couple with purple dress) as: image1.jpg
+2. Save the second image (couple side by side) as: image2.jpg
+
+The webpage will automatically load these images as scrolling backgrounds.

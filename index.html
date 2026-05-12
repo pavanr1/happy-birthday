@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎉</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: #1a1a2e;
+        }
+
+        .scroll-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y proximity;
+            position: relative;
+        }
+
+        .section {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            scroll-snap-align: start;
+        }
+
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+            z-index: 1;
+        }
+
+        .bg-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .bg-image.active {
+            opacity: 1;
+        }
+
+        #bg1 {
+            background-image: url('images/image1.jpg');
+        }
+
+        #bg2 {
+            background-image: url('images/image2.jpg');
+        }
+
+        .intro-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 2;
+        }
+
+        .intro-content {
+            text-align: center;
+            color: white;
+            z-index: 10;
+            padding: 20px;
+        }
+
+        .intro-content h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .intro-content .emoji {
+            font-size: 5rem;
+            display: inline-block;
+            animation: spin 3s ease-in-out infinite;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .scroll-hint::after {
+            content: '↓';
+            display: block;
+            font-size: 2rem;
+            margin-top: 10px;
+        }
+
+        .message-section {
+            z-index: 3;
+            padding: 20px;
+        }
+
+        .message-viewport {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            height: 300px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .message-viewport::before,
+        .message-viewport::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 80px;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .message-viewport::before {
+            top: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, transparent 100%);
+        }
+
+        .message-viewport::after {
+            bottom: 0;
+            background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, transparent 100%);
+        }
+
+        .message-content {
+            position: absolute;
+            top: 50%;
+            left: 40px;
+            right: 40px;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+        }
+
+        .message-line {
+            font-size: 1.8rem;
+            line-height: 2.5;
+            color: #333;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            margin: 10px 0;
+        }
+
+        .message-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .message-line.highlight {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 2rem;
+        }
+
+        .personal-message-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            z-index: 2;
+            padding: 40px 20px;
+        }
+
+        .personal-card {
+            max-width: 700px;
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .personal-card h2 {
+            color: #667eea;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .personal-card p {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #444;
+            margin: 20px 0;
+        }
+
+        .signature {
+            font-size: 1.2rem;
+            color: #667eea;
+            font-style: italic;
+            margin-top: 30px;
+        }
+
+        .final-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 2;
+        }
+
+        .final-content {
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .final-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .final-content .emoji {
+            font-size: 4rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes spin {
+            0%, 100% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(10deg);
+            }
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #ffd700;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .confetti:nth-child(2n) { background: #ff6b6b; }
+        .confetti:nth-child(3n) { background: #4ecdc4; }
+        .confetti:nth-child(4n) { background: #95e1d3; }
+        .confetti:nth-child(5n) { background: #ffe66d; }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .intro-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .intro-content .emoji {
+                font-size: 3.5rem;
+            }
+
+            .message-viewport {
+                height: 250px;
+                padding: 30px 20px;
+            }
+
+            .message-line {
+                font-size: 1.3rem;
+                line-height: 2;
+            }
+
+            .message-line.highlight {
+                font-size: 1.5rem;
+            }
+
+            .personal-card {
+                padding: 30px 20px;
+            }
+
+            .personal-card h2 {
+                font-size: 2rem;
+            }
+
+            .personal-card p {
+                font-size: 1.1rem;
+            }
+
+            .final-content h2 {
+                font-size: 2rem;
+            }
+
+            .final-content .emoji {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .intro-content h1 {
+                font-size: 2rem;
+            }
+
+            .message-viewport {
+                height: 220px;
+                padding: 20px 15px;
+            }
+
+            .message-content {
+                left: 15px;
+                right: 15px;
+            }
+
+            .message-line {
+                font-size: 1.1rem;
+                line-height: 1.8;
+            }
+
+            .message-line.highlight {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-image" id="bg1"></div>
+    <div class="bg-image" id="bg2"></div>
+
+    <div class="scroll-container">
+        <!-- Intro Section -->
+        <section class="section intro-section">
+            <div class="intro-content">
+                <div class="emoji">🎂</div>
+                <h1>Happy Birthday!</h1>
+                <div class="emoji">🎉</div>
+            </div>
+            <div class="scroll-hint">Scroll to unwrap your message</div>
+        </section>
+
+        <!-- Message Reveal Section -->
+        <section class="section message-section">
+            <div class="message-viewport">
+                <div class="message-content" id="messageContent">
+                    <div class="message-line">On this special day,</div>
+                    <div class="message-line highlight">I want you to know</div>
+                    <div class="message-line">how much you mean to me.</div>
+                    <div class="message-line">Every moment with you</div>
+                    <div class="message-line highlight">is a treasure,</div>
+                    <div class="message-line">and every memory we've made</div>
+                    <div class="message-line">brings a smile to my face.</div>
+                    <div class="message-line highlight">May your day be filled</div>
+                    <div class="message-line">with endless joy,</div>
+                    <div class="message-line">laughter, and love!</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal Message Section -->
+        <section class="section personal-message-section">
+            <div class="personal-card">
+                <h2>✨ A Special Note ✨</h2>
+                <p>
+                    <!-- ✏️ ADD YOUR PERSONAL MESSAGE HERE -->
+                    Dear [Name],<br><br>
+                    [Write your heartfelt personal message here. Share your favorite memories, 
+                    inside jokes, or express what this person means to you!]
+                    <!-- ✏️ END PERSONAL MESSAGE -->
+                </p>
+                <div class="signature">- With all my love, [Your Name]</div>
+            </div>
+        </section>
+
+        <!-- Final Wishes Section -->
+        <section class="section final-section">
+            <div class="final-content">
+                <h2>Wishing You The Best!</h2>
+                <p style="font-size: 1.5rem; margin: 20px 0;">
+                    May all your dreams come true! 🌟
+                </p>
+                <div class="emoji">🎈🎁🎊🎉</div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Confetti animation
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                confetti.style.animation = `confettiFall ${Math.random() * 2 + 2}s linear infinite`;
+                confetti.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(confetti);
+            }
+        }
+
+        // Background image transitions
+        const scrollContainer = document.querySelector('.scroll-container');
+        const bg1 = document.getElementById('bg1');
+        const bg2 = document.getElementById('bg2');
+
+        scrollContainer.addEventListener('scroll', () => {
+            const scrollPos = scrollContainer.scrollTop;
+            const windowHeight = window.innerHeight;
+
+            // Show bg1 in message section (2nd section)
+            if (scrollPos > windowHeight * 0.5 && scrollPos < windowHeight * 2) {
+                bg1.classList.add('active');
+                bg2.classList.remove('active');
+            } 
+            // Show bg2 in personal message section (3rd section)
+            else if (scrollPos >= windowHeight * 2 && scrollPos < windowHeight * 3) {
+                bg1.classList.remove('active');
+                bg2.classList.add('active');
+            } 
+            // Hide backgrounds
+            else {
+                bg1.classList.remove('active');
+                bg2.classList.remove('active');
+            }
+
+            // Message line reveal effect
+            revealMessageLines(scrollPos, windowHeight);
+        });
+
+        // Reveal message lines as user scrolls
+        function revealMessageLines(scrollPos, windowHeight) {
+            const messageLines = document.querySelectorAll('.message-line');
+            const messageSection = windowHeight;
+            
+            if (scrollPos > messageSection * 0.8 && scrollPos < messageSection * 2.2) {
+                const relativeScroll = scrollPos - messageSection;
+                const linesPerScreen = 3;
+                const lineHeight = 70;
+                
+                messageLines.forEach((line, index) => {
+                    const linePosition = index * lineHeight;
+                    const scrollOffset = relativeScroll * 0.5;
+                    
+                    // Show lines that are in the visible range
+                    if (Math.abs(linePosition - scrollOffset) < windowHeight / 4) {
+                        line.classList.add('visible');
+                    }
+                });
+
+                // Update message content position for scroll effect
+                const messageContent = document.getElementById('messageContent');
+                const offset = -(relativeScroll * 0.5);
+                messageContent.style.transform = `translateY(calc(-50% + ${offset}px))`;
+            }
+        }
+
+        // Initial setup
+        createConfetti();
+
+        // Show first 3 lines initially when scrolled to message section
+        window.addEventListener('load', () => {
+            const messageLines = document.querySelectorAll('.message-line');
+            messageLines.forEach((line, index) => {
+                if (index < 3) {
+                    line.classList.add('visible');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
