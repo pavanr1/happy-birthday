@@ -17,184 +17,160 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
+            overflow: hidden;
             background: #1a1a2e;
         }
 
-        .scroll-container {
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y proximity;
-            position: relative;
-        }
-
-        .section {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            scroll-snap-align: start;
-        }
-
-        .bg-image {
+        .page {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background-size: cover;
-            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             opacity: 0;
-            transition: opacity 0.8s ease;
-            z-index: 1;
+            visibility: hidden;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
         }
 
-        .bg-image::before {
+        .page.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* Page 1 - Image with tap to continue */
+        #page1 {
+            background-image: url('images/image1.png');
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+        }
+
+        #page1::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.2);
         }
 
-        .bg-image.active {
-            opacity: 1;
-        }
-
-        #bg1 {
-            background-image: url('images/image1.png');
-        }
-
-        .intro-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            z-index: 2;
-        }
-
-        .intro-content {
-            text-align: center;
-            color: white;
-            z-index: 10;
-            padding: 20px;
-        }
-
-        .intro-content h1 {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        .intro-content .emoji {
-            font-size: 5rem;
-            display: inline-block;
-            animation: spin 3s ease-in-out infinite;
-        }
-
-        .scroll-hint {
+        .tap-hint {
             position: absolute;
-            bottom: 30px;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            font-size: 1rem;
-            animation: bounce 2s ease-in-out infinite;
+            font-size: 1.5rem;
+            text-align: center;
+            z-index: 10;
+            animation: pulse 2s ease-in-out infinite;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 40px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
         }
 
-        .scroll-hint::after {
-            content: '↓';
-            display: block;
-            font-size: 2rem;
-            margin-top: 10px;
+        /* Page 2 - Message with image2 background */
+        #page2 {
+            background-image: url('images/image2.png');
+            background-size: cover;
+            background-position: center;
+            overflow-y: auto;
+        }
+
+        #page2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
         }
 
         .message-section {
+            position: relative;
             z-index: 3;
-            padding: 20px;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .message-viewport {
-            position: relative;
+        .message-container {
             width: 90%;
-            max-width: 800px;
-            height: 300px;
-            overflow: hidden;
+            max-width: 700px;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 30px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            z-index: 10;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
         }
 
-        .message-viewport::before,
-        .message-viewport::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 80px;
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .message-viewport::before {
-            top: 0;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, transparent 100%);
-        }
-
-        .message-viewport::after {
-            bottom: 0;
-            background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, transparent 100%);
+        .message-container h1 {
+            text-align: center;
+            color: #667eea;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
         }
 
         .message-content {
-            position: absolute;
-            top: 50%;
-            left: 40px;
-            right: 40px;
-            transform: translateY(-50%);
-            transition: transform 0.3s ease;
+            text-align: center;
         }
 
         .message-line {
-            font-size: 1.8rem;
-            line-height: 2.5;
+            font-size: 1.6rem;
+            line-height: 2.2;
             color: #333;
-            text-align: center;
+            margin: 15px 0;
+            animation: slideUp 0.8s ease forwards;
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-            margin: 10px 0;
-        }
-
-        .message-line.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .message-line.highlight {
             color: #667eea;
             font-weight: bold;
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
 
-        @keyframes bounce {
+        @keyframes pulse {
             0%, 100% {
+                transform: translateX(-50%) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateX(-50%) scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
                 transform: translateY(0);
             }
-            50% {
-                transform: translateY(-15px);
-            }
         }
 
-        @keyframes spin {
-            0%, 100% {
-                transform: rotate(-10deg);
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-            50% {
-                transform: rotate(10deg);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
@@ -224,17 +200,17 @@
         }
 
         @media (max-width: 768px) {
-            .intro-content h1 {
+            .tap-hint {
+                font-size: 1.2rem;
+                padding: 15px 30px;
+            }
+
+            .message-container {
+                padding: 40px 25px;
+            }
+
+            .message-container h1 {
                 font-size: 2.5rem;
-            }
-
-            .intro-content .emoji {
-                font-size: 3.5rem;
-            }
-
-            .message-viewport {
-                height: 250px;
-                padding: 30px 20px;
             }
 
             .message-line {
@@ -245,22 +221,20 @@
             .message-line.highlight {
                 font-size: 1.5rem;
             }
-
         }
 
         @media (max-width: 480px) {
-            .intro-content h1 {
+            .tap-hint {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+
+            .message-container {
+                padding: 30px 20px;
+            }
+
+            .message-container h1 {
                 font-size: 2rem;
-            }
-
-            .message-viewport {
-                height: 220px;
-                padding: 20px 15px;
-            }
-
-            .message-content {
-                left: 15px;
-                right: 15px;
             }
 
             .message-line {
@@ -275,23 +249,17 @@
     </style>
 </head>
 <body>
-    <div class="bg-image" id="bg1"></div>
+    <!-- Page 1: Image with tap to continue -->
+    <div class="page active" id="page1">
+        <div class="tap-hint">🎂 Tap to reveal your birthday message! 🎉</div>
+    </div>
 
-    <div class="scroll-container">
-        <!-- Intro Section -->
-        <section class="section intro-section">
-            <div class="intro-content">
-                <div class="emoji">🎂</div>
-                <h1>Happy Birthday!</h1>
-                <div class="emoji">🎉</div>
-            </div>
-            <div class="scroll-hint">Scroll to unwrap your message</div>
-        </section>
-
-        <!-- Message Reveal Section -->
-        <section class="section message-section">
-            <div class="message-viewport">
-                <div class="message-content" id="messageContent">
+    <!-- Page 2: Message with image2 background -->
+    <div class="page" id="page2">
+        <div class="message-section">
+            <div class="message-container">
+                <h1>Happy Birthday! 🎉</h1>
+                <div class="message-content">
                     <div class="message-line">On this special day,</div>
                     <div class="message-line highlight">I want you to know</div>
                     <div class="message-line">how much you mean to me.</div>
@@ -304,8 +272,7 @@
                     <div class="message-line">laughter, and love!</div>
                 </div>
             </div>
-        </section>
-
+        </div>
     </div>
 
     <script>
@@ -318,69 +285,29 @@
                 confetti.style.animationDelay = Math.random() * 3 + 's';
                 confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
                 confetti.style.animation = `confettiFall ${Math.random() * 2 + 2}s linear infinite`;
-                confetti.style.animationDelay = Math.random() * 3 + 's';
                 document.body.appendChild(confetti);
             }
         }
 
-        // Background image transitions
-        const scrollContainer = document.querySelector('.scroll-container');
-        const bg1 = document.getElementById('bg1');
+        // Page transition
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
 
-        scrollContainer.addEventListener('scroll', () => {
-            const scrollPos = scrollContainer.scrollTop;
-            const windowHeight = window.innerHeight;
-
-            // Show bg1 in message section (2nd section)
-            if (scrollPos > windowHeight * 0.5 && scrollPos < windowHeight * 2) {
-                bg1.classList.add('active');
-            } else {
-                bg1.classList.remove('active');
-            }
-
-            // Message line reveal effect
-            revealMessageLines(scrollPos, windowHeight);
+        // Tap on page 1 to reveal page 2
+        page1.addEventListener('click', () => {
+            page1.classList.remove('active');
+            page2.classList.add('active');
+            createConfetti();
+            animateMessageLines();
         });
 
-        // Reveal message lines as user scrolls
-        function revealMessageLines(scrollPos, windowHeight) {
-            const messageLines = document.querySelectorAll('.message-line');
-            const messageSection = windowHeight;
-            
-            if (scrollPos > messageSection * 0.8 && scrollPos < messageSection * 2.2) {
-                const relativeScroll = scrollPos - messageSection;
-                const linesPerScreen = 3;
-                const lineHeight = 70;
-                
-                messageLines.forEach((line, index) => {
-                    const linePosition = index * lineHeight;
-                    const scrollOffset = relativeScroll * 0.5;
-                    
-                    // Show lines that are in the visible range
-                    if (Math.abs(linePosition - scrollOffset) < windowHeight / 4) {
-                        line.classList.add('visible');
-                    }
-                });
-
-                // Update message content position for scroll effect
-                const messageContent = document.getElementById('messageContent');
-                const offset = -(relativeScroll * 0.5);
-                messageContent.style.transform = `translateY(calc(-50% + ${offset}px))`;
-            }
-        }
-
-        // Initial setup
-        createConfetti();
-
-        // Show first 3 lines initially when scrolled to message section
-        window.addEventListener('load', () => {
+        // Animate message lines
+        function animateMessageLines() {
             const messageLines = document.querySelectorAll('.message-line');
             messageLines.forEach((line, index) => {
-                if (index < 3) {
-                    line.classList.add('visible');
-                }
+                line.style.animationDelay = `${index * 0.2}s`;
             });
-        });
+        }
     </script>
 </body>
 </html>
