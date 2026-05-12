@@ -59,20 +59,50 @@
             background: rgba(0, 0, 0, 0.2);
         }
 
+        .page1-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+        }
+
+        .birthday-title {
+            font-size: 5rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            animation: fadeInScale 1.2s ease;
+        }
+
+        .birthday-emoji {
+            font-size: 6rem;
+            display: block;
+            margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
         .tap-hint {
             position: absolute;
             bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             text-align: center;
             z-index: 10;
             animation: pulse 2s ease-in-out infinite;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 18px 35px;
             border-radius: 50px;
             backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .tap-hint::before {
+            content: '👆';
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 5px;
         }
 
         /* Page 2 - Message with image2 background */
@@ -163,6 +193,26 @@
             }
         }
 
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
         @keyframes slideUp {
             from {
                 opacity: 0;
@@ -200,9 +250,17 @@
         }
 
         @media (max-width: 768px) {
+            .birthday-title {
+                font-size: 3.5rem;
+            }
+
+            .birthday-emoji {
+                font-size: 4.5rem;
+            }
+
             .tap-hint {
-                font-size: 1.2rem;
-                padding: 15px 30px;
+                font-size: 1.1rem;
+                padding: 15px 28px;
             }
 
             .message-container {
@@ -224,9 +282,18 @@
         }
 
         @media (max-width: 480px) {
+            .birthday-title {
+                font-size: 2.5rem;
+            }
+
+            .birthday-emoji {
+                font-size: 3.5rem;
+            }
+
             .tap-hint {
-                font-size: 1rem;
-                padding: 12px 25px;
+                font-size: 0.95rem;
+                padding: 12px 22px;
+                bottom: 30px;
             }
 
             .message-container {
@@ -251,7 +318,11 @@
 <body>
     <!-- Page 1: Image with tap to continue -->
     <div class="page active" id="page1">
-        <div class="tap-hint">🎂 Tap to reveal your birthday message! 🎉</div>
+        <div class="page1-content">
+            <span class="birthday-emoji">🎂</span>
+            <h1 class="birthday-title">Happy Birthday!</h1>
+        </div>
+        <div class="tap-hint">Tap to read your special message</div>
     </div>
 
     <!-- Page 2: Message with image2 background -->
