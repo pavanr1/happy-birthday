@@ -129,32 +129,57 @@
         .message-section {
             position: relative;
             z-index: 3;
-            padding: 60px 20px;
+            padding: 40px 20px;
             min-height: 100vh;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
-            padding-top: 80px;
-            padding-bottom: 80px;
         }
 
         .message-container {
-            width: 90%;
-            max-width: 700px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 30px;
-            padding: 50px 40px;
+            width: 85%;
+            max-width: 650px;
+            max-height: 70vh;
+            background: rgba(255, 255, 255, 0.93);
+            border-radius: 25px;
+            padding: 30px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(10px);
-            margin: auto;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .message-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .message-container::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .message-container::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .message-container::-webkit-scrollbar-thumb:hover {
+            background: #5568d3;
         }
 
         .message-container h1 {
             text-align: center;
             color: #667eea;
-            font-size: 3rem;
-            margin-bottom: 30px;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
             animation: fadeIn 1s ease;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            margin-top: -10px;
+            border-radius: 25px 25px 0 0;
+            z-index: 5;
         }
 
         .message-content {
@@ -162,10 +187,10 @@
         }
 
         .message-line {
-            font-size: 1.4rem;
-            line-height: 1.9;
+            font-size: 1.2rem;
+            line-height: 1.7;
             color: #333;
-            margin: 12px 0;
+            margin: 10px 0;
             animation: slideUp 0.8s ease forwards;
             opacity: 0;
         }
@@ -173,7 +198,7 @@
         .message-line.highlight {
             color: #667eea;
             font-weight: bold;
-            font-size: 1.5rem;
+            font-size: 1.35rem;
         }
 
 
@@ -270,20 +295,23 @@
             }
 
             .message-container {
-                padding: 40px 25px;
+                width: 90%;
+                max-height: 65vh;
+                padding: 25px 20px;
             }
 
             .message-container h1 {
-                font-size: 2.5rem;
+                font-size: 1.8rem;
+                padding: 12px 0;
             }
 
             .message-line {
-                font-size: 1.3rem;
-                line-height: 2;
+                font-size: 1.05rem;
+                line-height: 1.6;
             }
 
             .message-line.highlight {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
             }
         }
 
@@ -303,20 +331,24 @@
             }
 
             .message-container {
-                padding: 30px 20px;
+                width: 92%;
+                max-height: 60vh;
+                padding: 20px 15px;
             }
 
             .message-container h1 {
-                font-size: 2rem;
+                font-size: 1.5rem;
+                padding: 10px 0;
             }
 
             .message-line {
-                font-size: 1.1rem;
-                line-height: 1.8;
+                font-size: 0.95rem;
+                line-height: 1.5;
+                margin: 8px 0;
             }
 
             .message-line.highlight {
-                font-size: 1.3rem;
+                font-size: 1.1rem;
             }
         }
     </style>
