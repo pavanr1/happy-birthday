@@ -107,10 +107,7 @@
 
         /* Page 2 - Message with image2 background */
         #page2 {
-            background-image: url('images/image2.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            position: relative;
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
         }
@@ -122,13 +119,28 @@
             left: 0;
             right: 0;
             bottom: 0;
+            background-image: url('images/image2.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            z-index: 0;
+        }
+
+        #page2::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(0, 0, 0, 0.4);
             pointer-events: none;
+            z-index: 1;
         }
 
         .message-section {
             position: relative;
-            z-index: 3;
+            z-index: 10;
             padding: 40px 20px;
             min-height: 100vh;
             display: flex;
@@ -292,6 +304,17 @@
             .tap-hint {
                 font-size: 1.1rem;
                 padding: 15px 28px;
+            }
+
+            #page2::before {
+                background-attachment: scroll;
+                position: absolute;
+                min-height: 100vh;
+            }
+
+            #page2::after {
+                position: absolute;
+                min-height: 100vh;
             }
 
             .message-container {
