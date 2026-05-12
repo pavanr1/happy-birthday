@@ -110,27 +110,32 @@
             background-image: url('images/image2.png');
             background-size: cover;
             background-position: center;
-            overflow-y: auto;
+            background-attachment: fixed;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
         }
 
         #page2::before {
             content: '';
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
             background: rgba(0, 0, 0, 0.4);
+            pointer-events: none;
         }
 
         .message-section {
             position: relative;
             z-index: 3;
-            padding: 40px 20px;
+            padding: 60px 20px;
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
+            padding-top: 80px;
+            padding-bottom: 80px;
         }
 
         .message-container {
@@ -141,6 +146,7 @@
             padding: 50px 40px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(10px);
+            margin: auto;
         }
 
         .message-container h1 {
@@ -156,10 +162,10 @@
         }
 
         .message-line {
-            font-size: 1.6rem;
-            line-height: 2.2;
+            font-size: 1.4rem;
+            line-height: 1.9;
             color: #333;
-            margin: 15px 0;
+            margin: 12px 0;
             animation: slideUp 0.8s ease forwards;
             opacity: 0;
         }
@@ -167,7 +173,7 @@
         .message-line.highlight {
             color: #667eea;
             font-weight: bold;
-            font-size: 1.8rem;
+            font-size: 1.5rem;
         }
 
 
